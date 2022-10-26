@@ -17,7 +17,13 @@ import java.io.IOException;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,7 +35,7 @@ public class Game extends Canvas implements Runnable{
     public static final int WIDTH = 320;
     public static final int HEIGHT = WIDTH / 12*9;
     public static final int SCALE = 2;
-    public final String TITLE = "2D Space Game";
+    public final String TITLE = "2D Space Shooter";
     
     private boolean running = false;
     private Thread thread;
@@ -51,6 +57,7 @@ public class Game extends Canvas implements Runnable{
     public void init(){
         
         BufferedImageLoader loader = new BufferedImageLoader();
+        
         
         try{
             
@@ -196,8 +203,62 @@ public class Game extends Canvas implements Runnable{
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0,0), "Blank Cursor");
         
         JFrame frame = new JFrame(game.TITLE);
+        JMenuBar mb = new JMenuBar();
+        JMenu menu1 = new JMenu("Options");
+        
+        JMenuItem play = new JMenuItem("Play");
+        play.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ev) {
+        
+          }
+        });
+        
+        menu1.add(play);
+        JMenuItem pause = new JMenuItem("Pause");
+        menu1.add(pause);
+        pause.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ev) {
+        
+          }
+        });
+        
+        JMenuItem restart = new JMenuItem("Restart Game");
+        menu1.add(restart);
+        restart.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ev) {
+        
+          }
+        });
+        
+        JMenuItem back = new JMenuItem("Back");
+        menu1.add(back);
+        mb.add(menu1);
+        back.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ev) {
+        try {
+        Menu.main(new String[0]);
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+        }
+        
+        frame.setVisible(false);
+        
+          }
+        });
+        
+        
+        JMenu about = new JMenu("About");
+        mb.add(about);
+        about.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ev) {
+            
+          }
+        });
+        
+        frame.setJMenuBar(mb);
         frame.add(game);
         
+  
         
         frame.addMouseListener(new MouseAdapter(){
             public void mouseClicked(MouseEvent e){
